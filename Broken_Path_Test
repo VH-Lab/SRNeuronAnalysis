@@ -1,0 +1,27 @@
+from PathFixer import *
+file_location = raw_input("Input data path.")
+os.chdir(file_location)
+annotation_files = annotation_finder(file_location)
+
+for annotation_file in annotation_files:
+
+    nodes, edges = annotation_parser(annotation_file)
+
+    print 'node_location'
+    node_locations = node_location_finder(nodes, edges)
+    # print node_locations
+
+    print 'source_target'
+    # print source_target(edges)
+    source_target_dict = source_target(edges)
+    # print source_target_dict
+
+    # print 'path finder'
+    # print path_finder(source_target_dict, start, end, path=[])
+
+
+    print 'broken paths'
+    print broken_path_finder(source_target_dict, nodes, edges)
+
+    print'multi_target_finder'
+    print multi_target_finder(nodes,edges)

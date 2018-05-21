@@ -1,10 +1,10 @@
 import sqlite3
 connection=sqlite3.connect('C:\Users\Sarah\PycharmProjects\SRNeuronAnalysis\Dendrite_Analysis.db')
-cursor = connection.execute("select count(*) from Animals")
+cursor = connection.execute("select * from Animals")
 for row in cursor:
     print row
-# cursor = connection.execute("select animals.animal_id,genotype, age, sex, condition, avg(branch_number) from Neurons left join Animals on neurons.animal_id = animals.animal_id where age = 'P16' group by genotype, condition, sex")
-cursor = connection.execute("select * from Neurons left join Animals on neurons.animal_id = animals.animal_id where age='P16' group by animal_id, genotype, condition, sex")
+cursor = connection.execute("select animals.animal_id,genotype, age, sex, condition, avg(branch_number) from Neurons left join Animals on neurons.animal_id = animals.animal_id where age = 'P16' group by genotype, condition, sex")
+# cursor = connection.execute("select * from Neurons left join Animals on neurons.animal_id = animals.animal_id where age='P16' group by animal_id, genotype, condition, sex")
 for row in cursor:
     print row
 
@@ -12,7 +12,7 @@ for row in cursor:
 # connection.execute('drop table Animals')
 # connection.execute('''create table Animals(animal_id text primary key, age text, condition text, genotype text,
 #     sex text, number_of_cells text);''')
-
+#
 # import os
 # os.chdir("C:\Users\Sarah\Desktop\AnimalInfo")
 # import csv

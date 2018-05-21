@@ -3,8 +3,9 @@ import matplotlib.pyplot as plot;plot.rcdefaults()
 import numpy as np
 import matplotlib.pyplot as plot
 import statsmodels.api as sm
+from random import *
 from Database_Queries import dev_graphs
-WTTR_P7_values, WTTR_P12_values, WTTR_P16_values, WTTR_P21_values, WTTR_P30_values, KOTR_P7_values, KOTR_P12_values, KOTR_P16_values, KOTR_P21_values, KOTR_P30_values = dev_graphs('branch_number')
+WTTR_P7_values, WTTR_P12_values, WTTR_P16_values, WTTR_P21_values, WTTR_P30_values, KOTR_P7_values, KOTR_P12_values, KOTR_P16_values, KOTR_P21_values, KOTR_P30_values = dev_graphs('volume')
 
 #Calculate Means
 WTTR_P7_Mean = np.mean(WTTR_P7_values)
@@ -41,6 +42,24 @@ objects = ('WT P7', 'WT P12', 'WT P16', 'WT P21', 'WT P30')
 xvalue = np.arange(len(objects))
 yvalue = [WTTR_P7_Mean, WTTR_P12_Mean, WTTR_P16_Mean,WTTR_P21_Mean, WTTR_P30_Mean]
 yerr = [WTTR_P7_SEM, WTTR_P12_SEM, WTTR_P16_SEM, WTTR_P21_SEM, WTTR_P30_SEM]
+
+WTP7_xcoords = []
+WTP7_xcoords = [uniform(-0.1,0.1) for value in WTTR_P7_values]
+WTP12_xcoords = []
+WTP12_xcoords = [uniform(0.9,1.1) for value in WTTR_P12_values]
+WTP16_xcoords = []
+WTP16_xcoords = [uniform(1.9,2.1) for value in WTTR_P16_values]
+WTP21_xcoords = []
+WTP21_xcoords = [uniform(2.9,3.1) for value in WTTR_P21_values]
+WTP30_xcoords = []
+WTP30_xcoords = [uniform(3.9,4.1) for value in WTTR_P30_values]
+
+ax.scatter(WTP7_xcoords,WTTR_P7_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none',s=40)
+ax.scatter(WTP12_xcoords,WTTR_P12_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none',s=40)
+ax.scatter(WTP16_xcoords,WTTR_P16_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none',s=40)
+ax.scatter(WTP21_xcoords,WTTR_P21_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none',s=40)
+ax.scatter(WTP30_xcoords,WTTR_P30_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none',s=40)
+
 
 ax.bar(xvalue, yvalue, align='center', alpha=1, color=('#b4b4b4','#838383','#5b5b5b','#343434','#0d0d0d'), linewidth=0)
 ax.set_title('WT Development')

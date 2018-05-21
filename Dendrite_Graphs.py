@@ -2,9 +2,9 @@ import matplotlib.pyplot as plot;plot.rcdefaults()
 import numpy as np
 import matplotlib.pyplot as plot
 import math
+from random import *
 from Database_Queries import summary_graphs
-WTTR_values,WTDD_values,KOTR_values,KODD_values,WTTRM_values,WTTRF_values,WTDDM_values,WTDDF_values,KOTRM_values,KOTRF_values,KODDM_values,KODDF_values = summary_graphs('P30','tree_number')
-
+WTTR_values,WTDD_values,KOTR_values,KODD_values,WTTRM_values,WTTRF_values,WTDDM_values,WTDDF_values,KOTRM_values,KOTRF_values,KODDM_values,KODDF_values = summary_graphs('P16','branch_number')
 #Calculate Means
 WTTR_Mean = np.mean(WTTR_values)
 WTDD_Mean = np.mean(WTDD_values)
@@ -42,10 +42,19 @@ xvalue = np.arange(len(objects))
 yvalue = [WTTR_Mean, KOTR_Mean]
 yerr = [WTTR_SEM, KOTR_SEM]
 
+WT_xcoords = []
+WT_xcoords = [uniform(-0.1,0.1) for value in WTTR_values]
+
+KO_xcoords = []
+KO_xcoords = [uniform(0.90,1.1) for value in KOTR_values]
+
+ax.scatter(WT_xcoords,WTTR_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none',s=40)
+ax.scatter(KO_xcoords,KOTR_values, color = '#DFB125',zorder='2',alpha='0.85',edgecolors='none',s=40)
+
 ax.bar(xvalue, yvalue, align='center', alpha=1,color=('#0d0d0d','#035069'),linewidth=0)
 ax.set_ylabel('Metric')
 ax.set_title('WT vs. KO')
-ax.errorbar(xvalue, yvalue, yerr, fmt='none', ecolor='#666666', elinewidth='2', capsize=10, capthick='2')
+ax.errorbar(xvalue, yvalue, yerr, fmt='none', ecolor='#666666', elinewidth='2', capsize=10, capthick='2',zorder='1')
 
 
 #Plot Depriviation condition graph
@@ -54,6 +63,26 @@ objects = ('WT', 'WT DR', 'KO', 'KO DR')
 xvalue = np.arange(len(objects))
 yvalue = [WTTR_Mean, WTDD_Mean, KOTR_Mean, KODD_Mean]
 yerr = [WTTR_SEM, WTDD_SEM, KOTR_SEM, KODD_SEM]
+
+WTTR_xcoords = []
+WTTR_xcoords = [uniform(-0.1,0.1) for value in WTTR_values]
+
+WTDD_xcoords = []
+WTDD_xcoords = [uniform(0.90,1.1) for value in WTDD_values]
+
+KOTR_xcoords = []
+KOTR_xcoords = [uniform(1.90,2.1) for value in KOTR_values]
+
+KODD_xcoords = []
+KODD_xcoords = [uniform(2.90,3.1) for value in KODD_values]
+
+ax.scatter(WTTR_xcoords,WTTR_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none', s=30)
+ax.scatter(WTDD_xcoords,WTDD_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none', s=30)
+ax.scatter(KOTR_xcoords,KOTR_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none', s=30)
+ax.scatter(KODD_xcoords,KODD_values, color = '#DFB125',zorder='2',alpha='0.8',edgecolors='none', s=30)
+
+
+
 
 ax.bar(xvalue, yvalue, align='center', alpha=1, color=('#0d0d0d','#878787','#035069','#3D9CBC'), linewidth=0)
 ax.set_title('Genotype * Condition')
@@ -90,6 +119,7 @@ WTTR_data = WTTR_values
 KOTR_data = KOTR_values
 data=(WTTR_data,KOTR_data)
 
+
 boxprops = dict(linestyle='-', linewidth=0, color ='none',facecolor=('#035069'))
 flierprops = dict(marker='o', markerfacecolor='#E0B104', markersize=4,markeredgecolor='none')
 medianprops = dict(linestyle='-', linewidth=2.5, color='white')
@@ -112,6 +142,8 @@ KOTR_data = KOTR_values
 WTDD_data = WTDD_values
 KODD_data = KODD_values
 data=(WTTR_data,WTDD_data,KOTR_data,KODD_data)
+
+# ax.set_ylim(0,10000)
 
 boxprops = dict(linestyle='-', linewidth=0, color ='none',facecolor=('#035069'))
 flierprops = dict(marker='o', markerfacecolor='#E0B104', markersize=4,markeredgecolor='none')
